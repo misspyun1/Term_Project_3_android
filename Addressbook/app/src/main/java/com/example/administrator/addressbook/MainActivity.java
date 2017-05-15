@@ -1,65 +1,88 @@
 package com.example.administrator.addressbook;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MenuItemCompat;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.widget.Toast;
 
-import java.util.List;
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
 
-public class MainActivity extends AppCompatActivity {
+    private BottomNavigationView navigation;
+    private ViewPager viewPager;
+
+    private Contacts contact_fragment = new Contacts();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView listview;
-        ListViewAdapter adapter;
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-        adapter = new ListViewAdapter();
+        viewPager.addOnPageChangeListener(this);
 
-        listview = (ListView) findViewById(R.id.listview1);
-        listview.setAdapter(adapter);
-
-        adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_basic_person),"gyuri","01038259628");
-        adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_basic_person),"jiwoo","01024672959");
-        adapter.addItem(ContextCompat.getDrawable(this, R.mipmap.ic_basic_person),"inryu","01044444444");
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView parent, View v, int position, long id){
-                Person item = (Person) parent.getItemAtPosition(position);
-
-                String name = item.getName();
-                String number = item.getNumber();
-                Drawable iconDrawable = item.getIcon();
-            }
-        });
-
+        mTextMessage = (TextView) findViewById(R.id.message);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu,menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+    private TextView mTextMessage;
 
-            public boolean onQueryTextSubmit(String s){
-                return false;
-            }
+    private MenuItem prevBottomNavigation;
 
-            public boolean onQueryTextChange(String s){
-                System.out.print(s);
-                return false;
-            }
-        });
-        return true;
+    @Override
+    pubic void onPageSelected(int position){
+        if(prevBottomNavigation !=null){
+            prevBottomNavigation.setChecked(false);
+        }
+        prevBottomNavigation = mOnNavigationIte
     }
+
+    BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Intent contact_intent = new Intent(getApplicationContext(),Contacts.class);
+            switch (item.getItemId()) {
+                case R.id.navigation_contacts:
+                    startActivity(contact_intent);
+                    return true;
+                case R.id.navigation_favorites:
+                    mTextMessage.setText(R.string.selection_favorites);
+                    return true;
+                case R.id.navigation_recent:
+                    mTextMessage.setText(R.string.selection_recents);
+                    return true;
+                case R.id.navigation_keypad:
+                    mTextMessage.setText(R.string.title_keypad);
+                    return true;
+            }
+            return false;
+        }
+
+    };
+
+
+
+
+
+
+
+
+
+
+
 }

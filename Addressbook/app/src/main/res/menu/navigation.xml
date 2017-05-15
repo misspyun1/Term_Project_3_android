@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_favorites"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/selection_favorites" />
+    <item
+        android:id="@+id/navigation_recent"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/ic_recent"
+        android:title="@string/selection_recents" />
+
+    <item
+        android:id="@+id/navigation_contacts"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/ic_contact"
+        android:title="@string/selection_contacts" />
+
+    <item
+        android:id="@+id/navigation_keypad"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:icon="@drawable/ic_akeypad"
+        android:title="@string/title_keypad" />
+
+</menu>

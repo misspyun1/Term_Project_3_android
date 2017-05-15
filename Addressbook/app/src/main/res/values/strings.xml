@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Addressbook</string>
+    <string name="app_name">My Application</string>
+    <string name="title_home">Home</string>
+    <string name="selection_favorites">Favorites</string>
+    <string name="selection_recents">Recents</string>
+    <string name="selection_contacts">Contacts</string>
+    <string name="title_keypad">Keypad</string>
 </resources>
